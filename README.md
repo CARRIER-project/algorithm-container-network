@@ -3,3 +3,5 @@ Experimental setup for peer-to-peer network for algorithm containers with port f
 
 ![port forwarding diagram](./port-forwarding-diagram.jpg)
 
+## References
+* [How to share networks between docker containers](https://forums.docker.com/t/how-to-set-up-containers-with-vpn-client-installed-each-connecting-to-another-vpn-server/97549)
