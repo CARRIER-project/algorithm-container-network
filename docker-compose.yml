@@ -11,3 +11,20 @@ services:
     volumes:
       - ./vpn-config:/data/vpn
     restart: unless-stopped
+    networks:
+      - outside
+      - isolated
+
+  primary-algorithm:
+    build: ./primary-algorithm/
+    networks:
+      - isolated
+
+  seondary-algorithm:
+      build: ./secondary-algorithm/
+      networks:
+        - isolated
+
+networks:
+  outside:
+  isolated:
