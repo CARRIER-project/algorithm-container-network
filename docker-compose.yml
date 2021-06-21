@@ -20,7 +20,7 @@ services:
     networks:
       - isolated
 
-  seondary-algorithm:
+  secondary-algorithm:
       build: ./secondary-algorithm/
       networks:
         - isolated
