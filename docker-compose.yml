@@ -8,23 +8,32 @@ services:
       - /dev/net/tun
     environment:
       - KILL_SWITCH=off
+      - SUBNETS=192.168.0.0/24
     volumes:
-      - ./vpn-config:/data/vpn
+      - ./vpn-config/:/data/vpn/
     restart: unless-stopped
     networks:
       - outside
       - isolated
 
   primary-algorithm:
-    build: ./primary-algorithm/
+    volumes:
+      - ./primary-algorithm:/app
+    build: ./algorithm-base
     networks:
       - isolated
+    command: bash -c "pip install -r requirements.txt && python primary.py"
 
   secondary-algorithm:
-      build: ./secondary-algorithm/
-      networks:
-        - isolated
+    volumes:
+      - ./secondary-algorithm:/app
+    build: ./algorithm-base
+    networks:
+      - isolated
+    command: bash -c "pip install -r requirements.txt && python secondary.py"
 
 networks:
   outside:
+
   isolated:
+
