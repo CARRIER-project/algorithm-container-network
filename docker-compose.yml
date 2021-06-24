@@ -7,8 +7,8 @@ services:
     devices:
       - /dev/net/tun
     environment:
-      - KILL_SWITCH=off
-      - SUBNETS=192.168.0.0/24
+      - KILL_SWITCH=on
+      - SUBNETS=172.16.238.0/24,172.18.238.0/24,172.17.0.1
     volumes:
       - ./vpn-config/:/data/vpn/
     restart: unless-stopped
@@ -34,6 +34,10 @@ services:
 
 networks:
   outside:
-
+    ipam:
+      config:
+        - subnet: "172.18.238.0/24"
   isolated:
-
+    ipam:
+      config:
+        - subnet: "172.16.238.0/24"
