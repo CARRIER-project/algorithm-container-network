@@ -17,5 +17,9 @@ docker-compose exec openvpn-client
 echo VPN_SERVER_HOST VPN_SERVER_IP >> /etc/hosts
 ```
 
+## Openvpn server requirements
+- `blockLan = false`
+- `clientToClient = true`
+
 ## References
 * [How to share networks between docker containers](https://forums.docker.com/t/how-to-set-up-containers-with-vpn-client-installed-each-connecting-to-another-vpn-server/97549)
