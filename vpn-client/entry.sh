@@ -6,6 +6,7 @@
 
 # Nat
 
+
 # Run vpn
 
 echo "Starting vpn client..."

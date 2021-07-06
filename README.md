@@ -9,14 +9,12 @@ docker-compose up -d
 ```
 
 ## Notes
-In order to enable the vpn client to access the vpn server you have to do a hack in the 
-openvpn-client container.
+### Additional server configuration
+Blocking internet for vpn clients:
 ```shell
-docker-compose exec openvpn-client
-
-echo VPN_SERVER_HOST VPN_SERVER_IP >> /etc/hosts
+iptables -P FORWARD DROP
+iptables -A FORWARD -i tun+ -o tun+ -j ACCEPT
 ```
-
 ## Openvpn server requirements
 - `blockLan = false`
 - `clientToClient = true`
