@@ -37,6 +37,7 @@ networks:
       config:
         - subnet: "172.18.238.0/24"
   isolated:
+    internal: True
     ipam:
       config:
         - subnet: "172.16.238.0/24"
