@@ -6,7 +6,7 @@
 
 # Nat
 
-
+iptables -t nat -A POSTROUTING -o tun+ -j MASQUERADE
 # Run vpn
 
 echo "Starting vpn client..."
