@@ -14,8 +14,25 @@ Blocking internet for vpn clients:
 ```shell
 iptables -F FORWARD
 iptables -P FORWARD DROP
-iptables -A FORWARD -i tun+ -o tun+ -j ACCEPT
+iptables -A FORWARD -i tun+ -o eth1 -j ACCEPT
+iptables -A FORWARD -i eth1 -o tun+ -j ACCEPT
 ```
+Configuring routing in algorithm container namespace from host.
+
+```shell
+pid=$(docker container inspect $container_id -f '{{.State.Pid}}')
+mkdir -p /var/run/netns/
+ln -sfT /proc/$pid/ns/net /var/run/netns/$container_id
+
+ip netns exec $container_id ip a
+
+ip netns exec $container_id ip route replace default via $gateway
+
+```
+
+
+
+
 ## Openvpn server requirements
 - `blockLan = false`
 - `clientToClient = true`

@@ -5,6 +5,10 @@
 
 
 # Nat
+iptables -F FORWARD
+iptables -P FORWARD DROP
+iptables -A FORWARD -i eth1 -o tun0 -j ACCEPT
+iptables -A FORWARD -o eth1 -i tun0 -j ACCEPT
 
 iptables -t nat -A POSTROUTING -o tun+ -j MASQUERADE
 # Run vpn
