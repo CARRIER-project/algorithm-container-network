@@ -17,8 +17,17 @@ iptables -P FORWARD DROP
 iptables -A FORWARD -i tun+ -o eth1 -j ACCEPT
 iptables -A FORWARD -i eth1 -o tun+ -j ACCEPT
 ```
+
+Configure exception to docker bridge network isolation:
+```shell
+iptables -I DOCKER-USER 1 -d $vpn_subnet -i $isolated_bridge -j ACCEPT
+iptables -I DOCKER-USER 1 -s $vpn_subnet -o $isolated_bridge -j ACCEPT
+
+```
+
 Configuring routing in algorithm container namespace from host.
 
+# TODO: Maybe execute this in separate net-admin container that resides in algo-container namespace
 ```shell
 pid=$(docker container inspect $container_id -f '{{.State.Pid}}')
 mkdir -p /var/run/netns/
@@ -27,7 +36,6 @@ ln -sfT /proc/$pid/ns/net /var/run/netns/$container_id
 ip netns exec $container_id ip a
 
 ip netns exec $container_id ip route replace default via $gateway
-
 ```
 
 
