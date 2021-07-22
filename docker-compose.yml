@@ -22,7 +22,7 @@ services:
     build: ./algorithm-base
     networks:
       - isolated
-    command: bash -c "pip install -r requirements.txt && python primary.py"
+    command: "python primary.py"
 
   secondary-algorithm:
     volumes:
@@ -30,7 +30,7 @@ services:
     build: ./algorithm-base
     networks:
       - isolated
-    command: bash -c "pip install -r requirements.txt && python secondary.py"
+    command: "python secondary.py"
 
 networks:
   outside:

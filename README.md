@@ -22,7 +22,6 @@ Configure exception to docker bridge network isolation:
 ```shell
 iptables -I DOCKER-USER 1 -d $vpn_subnet -i $isolated_bridge -j ACCEPT
 iptables -I DOCKER-USER 1 -s $vpn_subnet -o $isolated_bridge -j ACCEPT
-
 ```
 
 Configuring routing in algorithm container namespace from host.
@@ -37,9 +36,6 @@ ip netns exec $container_id ip a
 
 ip netns exec $container_id ip route replace default via $gateway
 ```
-
-
-
 
 ## Openvpn server requirements
 - `blockLan = false`

@@ -1,11 +1,13 @@
-FROM ubuntu:20.10
+FROM python:3-alpine
 
 RUN mkdir /app
-RUN apt update && apt install -y python3-pip iptables iputils-ping iproute2
+COPY ./requirements.txt /app/
+
+RUN apk add iptables iputils iproute2 socat
 
 WORKDIR /app
 
-
+RUN pip install -r requirements.txt
 
 CMD python
 
