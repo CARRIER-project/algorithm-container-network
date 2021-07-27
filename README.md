@@ -9,8 +9,8 @@ docker-compose up -d
 ```
 
 ## Notes
-### Additional server configuration
-Blocking internet for vpn clients:
+### Additional configuration
+Blocking internet for vpn clients (this will run automatically on vpn client):
 ```shell
 iptables -F FORWARD
 iptables -P FORWARD DROP
@@ -18,7 +18,7 @@ iptables -A FORWARD -i tun+ -o eth1 -j ACCEPT
 iptables -A FORWARD -i eth1 -o tun+ -j ACCEPT
 ```
 
-Configure exception to docker bridge network isolation:
+On docker host, configure exception to docker bridge network isolation:
 ```shell
 iptables -I DOCKER-USER 1 -d $vpn_subnet -i $isolated_bridge -j ACCEPT
 iptables -I DOCKER-USER 1 -s $vpn_subnet -o $isolated_bridge -j ACCEPT
@@ -26,7 +26,7 @@ iptables -I DOCKER-USER 1 -s $vpn_subnet -o $isolated_bridge -j ACCEPT
 
 Configuring routing in algorithm container namespace from host.
 
-# TODO: Maybe execute this in separate net-admin container that resides in algo-container namespace
+_TODO: Maybe execute this in separate net-admin container that resides in algo-container namespace_
 ```shell
 pid=$(docker container inspect $container_id -f '{{.State.Pid}}')
 mkdir -p /var/run/netns/
