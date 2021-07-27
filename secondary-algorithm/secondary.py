@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 DEFAULT_PORT = 8888
+DEFAULT_HOST = '0.0.0.0'
 
 
 async def handle_echo(reader: StreamReader, writer: StreamWriter):
@@ -26,10 +27,10 @@ async def handle_echo(reader: StreamReader, writer: StreamWriter):
     writer.close()
 
 
-async def main(port=DEFAULT_PORT):
+async def main(host=DEFAULT_HOST, port=DEFAULT_PORT):
     logger.info('Starting secondary algorithm')
     server = await asyncio.start_server(
-        handle_echo, '127.0.0.1', port)
+        handle_echo, host, port)
 
     addr = server.sockets[0].getsockname()
     logger.info(f'Serving on {addr}')

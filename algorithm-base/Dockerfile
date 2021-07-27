@@ -1,5 +1,4 @@
 FROM python:3-alpine
-
 RUN mkdir /app
 COPY ./requirements.txt /app/
 
