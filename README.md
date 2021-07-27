@@ -37,6 +37,13 @@ ip netns exec $container_id ip a
 ip netns exec $container_id ip route replace default via $gateway
 ```
 
+Forward traffic from vpn client to algorithm container. Configure on vpn client per algorithm:
+TODO: make rule as specific as possible
+```shell
+iptables -t nat -A PREROUTING -i tun0 -p tcp \
+  --dport $vpn_client_port -j DNAT --to $isolated_algorithm_ip:$algorithm_port
+```
+
 ## Openvpn server requirements
 - `blockLan = false`
 - `clientToClient = true`
