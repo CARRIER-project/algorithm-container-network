@@ -10,6 +10,7 @@ docker-compose up -d
 
 ## Notes
 ### Additional configuration
+#### Blocking internet on vpn client container
 Blocking internet for vpn clients (this will run automatically on vpn client):
 ```shell
 iptables -F FORWARD
@@ -17,6 +18,12 @@ iptables -P FORWARD DROP
 iptables -A FORWARD -i tun+ -o eth1 -j ACCEPT
 iptables -A FORWARD -i eth1 -o tun+ -j ACCEPT
 ```
+
+#### Default namespace configuration
+The bridge networks of the docker containers are linked to network interfaces in the default 
+network namespace of the host (but by a different name). 
+
+
 
 On docker host, configure exception to docker bridge network isolation:
 ```shell
@@ -50,3 +57,4 @@ iptables -t nat -A PREROUTING -i tun0 -p tcp \
 
 ## References
 * [How to share networks between docker containers](https://forums.docker.com/t/how-to-set-up-containers-with-vpn-client-installed-each-connecting-to-another-vpn-server/97549)
+* [Container namespaces: deep dive into container networking](https://platform9.com/blog/container-namespaces-deep-dive-container-networking/)
