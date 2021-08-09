@@ -31,17 +31,10 @@ iptables -I DOCKER-USER 1 -d $vpn_subnet -i $isolated_bridge -j ACCEPT
 iptables -I DOCKER-USER 1 -s $vpn_subnet -o $isolated_bridge -j ACCEPT
 ```
 
-Configuring routing in algorithm container namespace from host.
 
-_TODO: Maybe execute this in separate net-admin container that resides in algo-container namespace_
 ```shell
-pid=$(docker container inspect $container_id -f '{{.State.Pid}}')
-mkdir -p /var/run/netns/
-ln -sfT /proc/$pid/ns/net /var/run/netns/$container_id
-
-ip netns exec $container_id ip a
-
-ip netns exec $container_id ip route replace default via $gateway
+docker run --network $isolated_network --cap-add=NET_ADMIN alpine \
+          ip netns exec $container_id ip route replace default via $gateway
 ```
 
 Forward traffic from vpn client to algorithm container. Configure on vpn client per algorithm:
