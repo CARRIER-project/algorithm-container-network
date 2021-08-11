@@ -3,6 +3,8 @@ Experimental setup for peer-to-peer network for algorithm containers with port f
 
 ![port forwarding diagram](./port-forwarding-diagram.jpg)
 
+The mechanisms described below are partly automated in the script `configure_network.py`.
+
 ## How to run
 ```bash
 docker-compose up -d
