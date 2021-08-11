@@ -1,8 +1,8 @@
-FROM python:3-alpine
+FROM continuumio/miniconda3
 RUN mkdir /app
 COPY ./requirements.txt /app/
 
-RUN apk add iptables iputils iproute2
+RUN apt update -y && apt install -y iptables iproute2
 
 WORKDIR /app
 
