@@ -35,8 +35,7 @@ iptables -I DOCKER-USER 1 -s $vpn_subnet -o $isolated_bridge -j ACCEPT
 
 
 ```shell
-docker run --network $isolated_network --cap-add=NET_ADMIN alpine \
-          ip netns exec $container_id ip route replace default via $gateway
+docker run --network container:$ISOLATED_CONTAINER --cap-add=NET_ADMIN alpine ip route replace default via 172.16.238.2
 ```
 
 Forward traffic from vpn client to algorithm container. Configure on vpn client per algorithm:
